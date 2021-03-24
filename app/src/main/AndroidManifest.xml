@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.chegou.usuario">
+
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- <permission android:name="android.permission.INTERNET" /> -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.FLAG_GRANT_READ_URI_PERMISSION" />
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- Required for new Book for some else feature -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+
+
+<!--    <permission-->
+<!--        android:name="com.luis.rider.googlemapsv2.permission.MAPS_RECEIVE"-->
+<!--        android:protectionLevel="signature" />-->
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="true" />
+
+    <uses-permission
+        android:name="com.luis.rider.googlemapsv2.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:requestLegacyExternalStorage="true"
+        android:name="com.general.files.MyApp"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:supportsRtl="true"
+        android:theme="@style/AppCompatTheme"
+        android:resizeableActivity="false"
+        tools:replace="android:allowBackup">
+
+        <uses-library
+        				android:name="org.apache.http.legacy"
+        				android:required="false"/>
+        <activity android:name="com.chegou.usuario.MenuSettingActivity"></activity>
+        <activity android:name="com.chegou.usuario.ProfilePaymentActivity" />
+        <activity
+            android:name="com.chegou.usuario.UberXHomeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.chegou.usuario.MyProfileNewActivity" />
+        <activity
+            android:name="com.chegou.usuario.DonationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.PrescriptionHistoryImagesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.PrescriptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.ProviderInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name="com.general.files.SinchService"
+            android:exported="true" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_android_geo_api_key" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+
+        <receiver
+            android:name="com.general.files.AlarmReceiver"
+            android:enabled="false">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.BOOT_COMPLETED" /> -->
+            <!-- </intent-filter> -->
+        </receiver>
+
+        <service android:name="com.chegou.usuario.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <!--
+ <service
+            android:name="com.general.files.MyBackGroundService"
+            android:enabled="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="Service Alert"
+            android:persistent="true" />
+        -->
+        <!--
+   <receiver
+            android:name=".StartServiceReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="android.intent.action.REBOOT" />
+                <action android:name="com.luis.rider.StartServiceReceiver" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.REBOOT" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.REBOOT" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.REBOOT" />
+            </intent-filter>
+        </receiver>
+        -->
+        <activity
+            android:name="com.twitter.sdk.android.core.identity.OAuthActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.LauncherActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.chegou.usuario.AppLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.SelectCountryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.VerifyFbProfileActivity"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@style/FBtheme"
+            tools:replace="android:theme" />
+        <activity
+            android:name="com.chegou.usuario.SearchPickupLocationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.FareEstimateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.MyProfileActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.StaticPageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.ContactUsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.HelpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.QuestionAnswerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.HistoryDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.App.Base" />
+        <activity
+            android:name="com.chegou.usuario.RatingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.CardPaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.EmergencyContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.ConfirmEmergencyTapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.EnterDeliveryDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.MyWalletActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.MyWalletHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.InviteFriendsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.VerifyInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.UberXSelectServiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.UberXActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.OnGoingTripsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.OnGoingTripDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.AppLoignRegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.AccountverificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.SupportActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.FareBreakDownActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.PrefranceActivity"
+            android:screenOrientation="portrait" />
+
+        <receiver
+            android:name="com.chegou.usuario.FirebaseDataReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.chegou.usuario.ChatActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.SearchLocationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.ListAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.AddAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.ScheduleDateSelectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.UfxOrderDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.UfxPaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.BookingSummaryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.MaintenanceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.Help_MainCategory"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.Help_SubCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.Help_DetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.RentalInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.RentalDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="${applicationId}.braintree" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.chegou.usuario.VerifyCardTokenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="co.omise.android.ui.CreditCardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OmiseSDKTheme" />
+        <activity
+            android:name="com.xendit.XenditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.cropper.CropImageActivity"
+            android:screenOrientation="portrait" /> <!-- Multi delivery_v2 Screens -->
+        <activity
+            android:name="com.chegou.usuario.CommonDeliveryTypeSelectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.EnterMultiDeliveryDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.MultiDeliverySecondPhaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.MultiDeliveryThirdPhaseActivity"
+            android:screenOrientation="portrait" /> <!-- Deliver all -->
+        <activity
+            android:name="com.chegou.usuario.deliverAll.FoodDeliveryHomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.RestaurantAllDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.SearchFoodActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.RestaurantsSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.SearchRestaurantListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.AddBasketActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.CheckOutActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.EditCartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.PaymentCardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.ServiceHomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.ViewCardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.OrderPlaceConfirmActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.ActiveOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.TrackOrderActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.OrderDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.FoodRatingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.RestaurantAllDetailsNewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.deliverAll.SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="io.card.payment.CardIOActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.CouponActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.BusinessProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.BusinessSetupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.SelectOrganizationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.OrganizationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.MyBusinessProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.BusinessSelectPaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.IncomingCallScreenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.CallScreenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.NotificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.NotificationDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.QuickPaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.livechatinc.inappchat.ChatWindowActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.UberxFilterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.MoreInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.UberxCartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.CarWashBookingDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.MoreServiceInfoActivity"
+            android:screenOrientation="portrait" /> <!-- Book for Some Else Activities -->
+        <activity
+            android:name="com.chegou.usuario.BookSomeOneElsePickContactActivity"
+            android:screenOrientation="portrait" /> <!-- FavDriver Activities -->
+        <activity
+            android:name="com.chegou.usuario.FavouriteDriverActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.BookingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.chegou.usuario.ViewMultiDeliveryDetailsActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>
